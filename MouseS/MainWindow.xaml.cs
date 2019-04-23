@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
+using System.Drawing;
+
 
 namespace MouseS
 {
@@ -20,9 +23,30 @@ namespace MouseS
     /// </summary>
     public partial class MainWindow : Window
     {
+        
+
         public MainWindow()
         {
             InitializeComponent();
+            
+            NotifyIcon notifyIcon1 = new NotifyIcon();
+            notifyIcon1.Icon = new System.Drawing.Icon(@"Icon.ico");
+            notifyIcon1.Visible = true;
+            notifyIcon1.Text = "MouseS";
+            notifyIcon1.Click += ItemClick;
+
+            
+        }
+
+
+        public void ItemClick(object sender, EventArgs e)
+        {
+            this.WindowState = WindowState.Normal;
+            this.Focus();
+            this.Top = System.Windows.Forms.Control.MousePosition.Y - 450;
+            this.Left = System.Windows.Forms.Control.MousePosition.X - 200;
+            
+
         }
     }
 }

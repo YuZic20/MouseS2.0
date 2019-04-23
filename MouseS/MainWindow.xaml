@@ -5,8 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MouseS"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        MaxHeight="450"
+        MaxWidth="200"
+        MinHeight="450"
+        MinWidth="200"
+        Topmost="True"
+        Title="MainWindow" Height="450" Width="200">
     <Grid>
-        
+        <StackPanel>
+            <Label FontSize="20">MouseS</Label>
+            <Rectangle Height="2" Margin=" 0 5" Fill="LightGray"></Rectangle>
+            <Label FontSize="9">Profiles:</Label>
+            <Menu Background="White">
+                
+                <MenuItem Header="Current profile" Name="ProfileNow">
+                    <MenuItem Header="MenuItem1"/>
+                </MenuItem>
+            </Menu>
+            <StackPanel Orientation="Horizontal">
+                <TextBox Width="165"></TextBox>
+                <Button Width="25">+</Button>                
+            </StackPanel>
+
+            <Rectangle Height="2" Margin="0 5" Fill="LightGray"></Rectangle>
+
+            <Label FontSize="9">Settings of selected profile:</Label>
+            <StackPanel Orientation="Horizontal">
+                <Label>Mouse Speed:</Label>
+                <Label>0</Label>
+            </StackPanel>
+                
+            <Slider></Slider>
+            <StackPanel Orientation="Horizontal">
+                <Label>Dubble Click Speed:</Label>
+                <Label>0</Label>
+            </StackPanel>
+            <Slider></Slider>
+            <StackPanel Orientation="Horizontal">
+                <Label>Scroll Wheel Speed:</Label>
+                <Label>0</Label>
+            </StackPanel>
+            <Slider></Slider>
+        </StackPanel>
     </Grid>
 </Window>

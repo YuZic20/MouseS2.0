@@ -34,6 +34,7 @@ namespace MouseS
             notifyIcon1.Visible = true;
             notifyIcon1.Text = "MouseS";
             notifyIcon1.Click += ItemClick;
+            Update();
 
             
         }
@@ -47,6 +48,22 @@ namespace MouseS
             this.Left = System.Windows.Forms.Control.MousePosition.X - 200;
             
 
+        }
+        public void Update()
+        {
+            UpdateSpeed();
+        }
+        public void UpdateSpeed()
+        {
+           int speed = MouseSpeed.GetMouseSpeed();
+            MouseSpeedSlider.Value = speed;
+            MouseSpeedLabel.Content = speed;
+        }
+
+        private void MouseSpeedSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            MouseSpeed.SetMouseSpeed((int)MouseSpeedSlider.Value);
+            UpdateSpeed();
         }
     }
 }

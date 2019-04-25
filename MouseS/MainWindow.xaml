@@ -32,10 +32,10 @@
             <Label FontSize="9">Settings of selected profile:</Label>
             <StackPanel Orientation="Horizontal">
                 <Label>Mouse Speed:</Label>
-                <Label>0</Label>
+                <Label Name="MouseSpeedLabel">0</Label>
             </StackPanel>
-                
-            <Slider></Slider>
+
+            <Slider Maximum="20" Minimum="1" Value="1" Name="MouseSpeedSlider" Thumb.DragCompleted="MouseSpeedSlider_DragCompleted" IsSnapToTickEnabled ="True"></Slider>
             <StackPanel Orientation="Horizontal">
                 <Label>Dubble Click Speed:</Label>
                 <Label>0</Label>

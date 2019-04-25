@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MouseS
 {
-    static class MouseSpeed
+    class MouseSpeedGet
     {
+
         public const UInt32 SPI_SETMOUSESPEED = 0x0071;
 
         public const UInt32 SPI_GETMOUSESPEED = 0x0070;
@@ -20,17 +20,6 @@ namespace MouseS
             UInt32 uiParam,
             object pvParam,
             UInt32 fWinIni);
-
-
-        public static void SetMouseSpeed ( int speed)
-        {
-            if(speed <= 20 && speed >= 1)
-            {
-                
-                SystemParametersInfo(SPI_SETMOUSESPEED, 0, (UInt32)Convert.ToUInt32(speed), 0);
-            }
-            
-        }
         public static unsafe int GetMouseSpeed()
         {
 
@@ -41,7 +30,7 @@ namespace MouseS
 
 
             return Convert.ToInt32(Convert.ToInt32(speed));
-            
+
         }
     }
 }

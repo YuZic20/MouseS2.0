@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace MouseS
 {
-    class Profile
+    public class Profile
     {
         public string Name { get; set; }
         public int MouseSpeed { get; set; } // 1-20
+        public int DubbleClick { get; set; }// 1 -5000
+        public int ScrollSpeed { get; set; }// 1-50
     }
 }

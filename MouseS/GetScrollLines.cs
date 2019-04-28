@@ -7,12 +7,9 @@ using System.Runtime.InteropServices;
 
 namespace MouseS
 {
-    class MouseSpeedGet
+    class GetScrollLines
     {
-
-        
-
-        public const UInt32 SPI_GETMOUSESPEED = 0x0070;
+        public const UInt32 SPI_GETWHEELSCROLLLINES = 0x0068;
 
 
         [DllImport("User32.dll")]
@@ -21,18 +18,17 @@ namespace MouseS
             UInt32 uiParam,
             IntPtr pvParam,
             UInt32 fWinIni);
-        public static unsafe int GetMouseSpeed()
+        public static unsafe int GetSpeed()
         {
 
             uint speed;
 
-            SystemParametersInfo(SPI_GETMOUSESPEED, 0, new IntPtr(&speed), 0);
+            SystemParametersInfo(SPI_GETWHEELSCROLLLINES, 0, new IntPtr(&speed), 0);
 
 
 
             return Convert.ToInt32(Convert.ToInt32(speed));
 
         }
-
     }
 }

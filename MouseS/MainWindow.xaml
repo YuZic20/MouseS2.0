@@ -18,13 +18,13 @@
             <Label FontSize="9">Profiles:</Label>
             <Menu Background="White">
                 
-                <MenuItem Header="Current profile" Name="ProfileNow">
-                    <MenuItem Header="MenuItem1"/>
+                <MenuItem Header="Defalut profile" Name="ProfileNow">
+                    <MenuItem Header="MenuItem1" Click="MenuItem_Click"/>
                 </MenuItem>
             </Menu>
             <StackPanel Orientation="Horizontal">
-                <TextBox Width="165"></TextBox>
-                <Button Width="25">+</Button>                
+                <TextBox Width="165" Name="ProfileName"></TextBox>
+                <Button Width="25" Click="Button_Click">+</Button>                
             </StackPanel>
 
             <Rectangle Height="2" Margin="0 5" Fill="LightGray"></Rectangle>
@@ -38,14 +38,16 @@
             <Slider Maximum="20" Minimum="1" Value="1" Name="MouseSpeedSlider" Thumb.DragCompleted="MouseSpeedSlider_DragCompleted" IsSnapToTickEnabled ="True"></Slider>
             <StackPanel Orientation="Horizontal">
                 <Label>Dubble Click Speed:</Label>
-                <Label>0</Label>
+                <Label Name="DubbleClickTimeLabel">0</Label>
+                <Label>ms</Label>
             </StackPanel>
-            <Slider></Slider>
+            <Slider Maximum="5000" Minimum="1" IsSnapToTickEnabled="True" Name="DubbleClickTimeSlider" Thumb.DragCompleted="DubbleClickTimeSlider_DragCompleted"></Slider>
             <StackPanel Orientation="Horizontal">
                 <Label>Scroll Wheel Speed:</Label>
-                <Label>0</Label>
+                <Label Name="LinesLabel">0</Label>
+                <Label>Lines</Label>
             </StackPanel>
-            <Slider></Slider>
+            <Slider Maximum="50" Minimum="1" IsSnapToTickEnabled="True" Name="LinesSlider" Thumb.DragCompleted="LanesSlider_DragCompleted"></Slider>
         </StackPanel>
     </Grid>
 </Window>

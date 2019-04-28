@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Forms;
 using System.Drawing;
-
+using MenuItem = System.Windows.Controls.MenuItem;
 
 namespace MouseS
 {
@@ -23,7 +23,8 @@ namespace MouseS
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        public List<Profile> profiles = DataHandle.LoadProfiles();
+        public int IndexofCurrentProfile =0;
 
         public MainWindow()
         {
@@ -34,6 +35,9 @@ namespace MouseS
             notifyIcon1.Visible = true;
             notifyIcon1.Text = "MouseS";
             notifyIcon1.Click += ItemClick;
+
+            ChangeProfile(0);
+            GenerateProfileButtons(profiles);
             Update();
 
             
@@ -51,19 +55,118 @@ namespace MouseS
         }
         public void Update()
         {
-            UpdateSpeed();
+            UpdateSpeed(false);
+            UpdateClick(false);
+            UpdateLines(false);
+            SaveData();
         }
-        public void UpdateSpeed()
+        public void UpdateSpeed(bool save = true)
         {
-           int speed = MouseSpeed.GetMouseSpeed();
+           int speed = MouseSpeedGet.GetMouseSpeed();
             MouseSpeedSlider.Value = speed;
             MouseSpeedLabel.Content = speed;
+            profiles[IndexofCurrentProfile].MouseSpeed = speed;
+            if (save)
+            {
+                SaveData();
+            }
+
+        }
+        public void UpdateClick(bool save = true)
+        {
+            int ClickSpeed = GetDubbleClick.GetClickSpeed();
+            DubbleClickTimeSlider.Value = ClickSpeed;
+            DubbleClickTimeLabel.Content = ClickSpeed;
+            profiles[IndexofCurrentProfile].DubbleClick = ClickSpeed;
+            if (save)
+            {
+                SaveData();
+            }
+        }
+        public void UpdateLines(bool save = true)
+        {
+            int Lines = GetScrollLines.GetSpeed();
+            LinesSlider.Value = Lines;
+            LinesLabel.Content = Lines;
+            profiles[IndexofCurrentProfile].ScrollSpeed = Lines;
+            if (save)
+            {
+                SaveData();
+            }
+
+        }
+        public void SaveData()
+        {
+            DataHandle.SaveProfiles(profiles);
+        }
+
+        public Profile CurrentData()
+        {
+            
+            Profile profile = new Profile();
+            profile.Name = (string)ProfileNow.Header;
+            profile.MouseSpeed = MouseSpeedGet.GetMouseSpeed();
+            profile.ScrollSpeed = GetScrollLines.GetSpeed();
+            profile.DubbleClick = GetDubbleClick.GetClickSpeed();
+            return profile;
+        }
+        public void ChangeProfile(int IndexOfProfile)
+        {
+            ProfileNow.Header = profiles[IndexOfProfile].Name;
+            MouseSpeed.SetMouseSpeed(profiles[IndexofCurrentProfile].MouseSpeed);
+            SetDubbleClick.SetClickSpeed(profiles[IndexofCurrentProfile].DubbleClick);
+            SetScrollLines.SetLineSpeed(profiles[IndexofCurrentProfile].ScrollSpeed);
+            Update();
+        }
+
+        public void GenerateProfileButtons(List<Profile> profiles)
+        {
+            ProfileNow.Items.Clear();
+            for(int i = 0; i< profiles.Count(); i++)
+            {
+                MenuItem menuitem = new MenuItem();
+                menuitem.Header = profiles[i].Name;
+                menuitem.Tag = i;
+                menuitem.Click += new RoutedEventHandler(MenuItem_Click);
+                ProfileNow.Items.Add(menuitem);
+            }
         }
 
         private void MouseSpeedSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
         {
             MouseSpeed.SetMouseSpeed((int)MouseSpeedSlider.Value);
             UpdateSpeed();
+        }
+
+        private void DubbleClickTimeSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            SetDubbleClick.SetClickSpeed((int)DubbleClickTimeSlider.Value);
+            UpdateClick();
+        }
+
+        private void LanesSlider_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e)
+        {
+            SetScrollLines.SetLineSpeed((int)LinesSlider.Value);
+            UpdateLines();
+        }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem item = (MenuItem)sender;
+            IndexofCurrentProfile = (int)item.Tag;
+            ChangeProfile(IndexofCurrentProfile);
+            GenerateProfileButtons(profiles);
+            Update();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Profile profile = new Profile();
+            profile = CurrentData();
+            profile.Name = ProfileName.Text;
+            profiles.Add(profile);
+            GenerateProfileButtons(profiles);
+            Update();
         }
     }
 }

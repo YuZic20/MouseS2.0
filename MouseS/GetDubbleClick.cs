@@ -7,32 +7,24 @@ using System.Runtime.InteropServices;
 
 namespace MouseS
 {
-    class MouseSpeedGet
+    class GetDubbleClick
     {
-
-        
-
         public const UInt32 SPI_GETMOUSESPEED = 0x0070;
 
 
         [DllImport("User32.dll")]
-        static extern bool SystemParametersInfo(
-            UInt32 uiAction,
-            UInt32 uiParam,
-            IntPtr pvParam,
-            UInt32 fWinIni);
-        public static unsafe int GetMouseSpeed()
+        static extern uint GetDoubleClickTime();
+        public static unsafe int GetClickSpeed()
         {
 
             uint speed;
 
-            SystemParametersInfo(SPI_GETMOUSESPEED, 0, new IntPtr(&speed), 0);
+            speed = GetDoubleClickTime();
 
-
+            
 
             return Convert.ToInt32(Convert.ToInt32(speed));
 
         }
-
     }
 }

@@ -31,7 +31,7 @@ namespace MouseS
             InitializeComponent();
             
             NotifyIcon notifyIcon1 = new NotifyIcon();
-            notifyIcon1.Icon = new System.Drawing.Icon(@"Icon.ico");
+            notifyIcon1.Icon = SystemIcons.Application;
             notifyIcon1.Visible = true;
             notifyIcon1.Text = "MouseS";
             notifyIcon1.Click += ItemClick;

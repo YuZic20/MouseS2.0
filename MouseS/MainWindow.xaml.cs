@@ -23,8 +23,9 @@ namespace MouseS
     /// </summary>
     public partial class MainWindow : Window
     {
-        public List<Profile> profiles = DataHandle.LoadProfiles();
+        public List<Profile> profiles;
         public int IndexofCurrentProfile =0;
+        public int ID;
 
         public MainWindow()
         {
@@ -36,11 +37,9 @@ namespace MouseS
             notifyIcon1.Text = "MouseS";
             notifyIcon1.Click += ItemClick;
 
-            ChangeProfile(0);
-            GenerateProfileButtons(profiles);
-            Update();
-
             
+
+
         }
 
 
@@ -97,7 +96,7 @@ namespace MouseS
         }
         public void SaveData()
         {
-            DataHandle.SaveProfiles(profiles);
+            DataHandle.SaveProfiles(profiles, ID);
         }
 
         public Profile CurrentData()
@@ -167,6 +166,25 @@ namespace MouseS
             profiles.Add(profile);
             GenerateProfileButtons(profiles);
             Update();
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            if(IdText.Text != "")
+            {
+                int n;
+                bool isNumeric = int.TryParse(IdText.Text, out n);
+                if (isNumeric)
+                {
+                    IntPanel.Visibility = Visibility.Hidden;
+                    ID = n;
+
+                    profiles = DataHandle.LoadProfiles(ID);
+                    ChangeProfile(0);
+                    GenerateProfileButtons(profiles);
+                    Update();
+                }
+            }
         }
     }
 }

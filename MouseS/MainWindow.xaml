@@ -12,6 +12,7 @@
         Topmost="True"
         Title="MainWindow" Height="450" Width="200">
     <Grid>
+        
         <StackPanel>
             <Label FontSize="20">MouseS</Label>
             <Rectangle Height="2" Margin=" 0 5" Fill="LightGray"></Rectangle>
@@ -49,5 +50,17 @@
             </StackPanel>
             <Slider Maximum="50" Minimum="1" IsSnapToTickEnabled="True" Name="LinesSlider" Thumb.DragCompleted="LanesSlider_DragCompleted"></Slider>
         </StackPanel>
+        <Grid Name="IntPanel">
+            <Rectangle Fill="White" Width="200" Height="450"/>
+            <StackPanel>
+                <Label>ID:</Label>
+                <StackPanel Orientation="Horizontal" Height="20">
+                    <TextBox Width="165" Name="IdText"></TextBox>
+                    <Button Width="25" Click="Button_Click_1">+</Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+        
+        
     </Grid>
 </Window>
